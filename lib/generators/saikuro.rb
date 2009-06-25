@@ -104,7 +104,7 @@ module MetricFu
  
     def to_h
       merge_classes
-      {:classes => @elements}
+      {:classes => @elements, :path => @path}
     end
  
     def get_elements

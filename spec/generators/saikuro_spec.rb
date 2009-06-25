@@ -14,6 +14,10 @@ describe Saikuro do
     it "should find the filename of a file" do
       @output[:saikuro][:files].first[:filename].should == 'users_controller.rb'
     end
+
+    it "should find the path of a file" do
+      @output[:saikuro][:files].first[:path].should =~ %r{/resources/saikuro/app/controllers/users_controller.rb_cyclo.html$}
+    end
  
     it "should find the name of the classes" do
       @output[:saikuro][:classes].first[:name].should == "UsersController"
