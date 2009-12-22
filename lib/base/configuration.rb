@@ -9,6 +9,8 @@ module MetricFu
                        :roodi, :saikuro, :rcov]
 
   AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov]
+  
+  AVAILABLE_AGGREGATORS = [:churn, :flay, :flog, :rcov, :saikuro]
 
   # The @@configuration class variable holds a global type configuration
   # object for any parts of the system to use.
@@ -107,6 +109,7 @@ module MetricFu
       @template_class = AwesomeTemplate
       set_metrics
       set_graphs
+      set_aggregators
       set_code_dirs
       @flay     = { :dirs_to_flay => @code_dirs  } 
       @flog     = { :dirs_to_flog => @code_dirs  }
@@ -165,6 +168,10 @@ module MetricFu
     
     def set_graphs
       @graphs = MetricFu::AVAILABLE_GRAPHS 
+    end
+    
+    def set_aggregators
+      @aggregators = MetricFu::AVAILABLE_AGGREGATORS
     end
 
     # Add the 'app' directory if we're running within rails.

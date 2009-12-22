@@ -204,6 +204,13 @@ describe MetricFu::Configuration do
         end
       end
 
+      describe '#set_aggregators ' do
+        it 'should set the @aggregators instance var to AVAILABLE_AGGREGATORS' do
+          @config.instance_variable_get(:@aggregators).
+                  should == MetricFu::AVAILABLE_AGGREGATORS
+        end
+      end
+
       describe '#set_code_dirs ' do
         it 'should set the @code_dirs instance var to ["app", "lib"]' do
           # This is hard to spec properly because the @code_dirs variable
@@ -262,6 +269,12 @@ describe MetricFu::Configuration do
     MetricFu::AVAILABLE_GRAPHS.each do |graph|
       it "should add a #{graph} class metrhod to the MetricFu module" do
         MetricFu.should respond_to(graph)
+      end
+    end
+
+    MetricFu::AVAILABLE_AGGREGATORS.each do |aggregator|
+      it "should add a #{aggregator} class metrhod to the MetricFu module" do
+        MetricFu.should respond_to(aggregator)
       end
     end
   end

@@ -24,5 +24,8 @@
 <% if @stats %>
   <li class='even failure'><a href="stats.html">Stats</a></li>
 <% end %>
+<% if @motion %>
+  <li class='even failure'><a href="motion.html">Motion Chart</a></li>
+<% end %>
 </ul>
 <p>Generated on <%= Time.now.localtime %></p>	

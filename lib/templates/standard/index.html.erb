@@ -32,6 +32,9 @@
   <% if @stats %>
     <p><a href="stats.html">Stats report</a></p>
   <% end %>
+  <% if @motion %>
+    <p><a href="motion.html">Motion chart</a></p>
+  <% end %>
   <p>Generated on <%= Time.now.localtime %></p>	
 </body>
 </html>

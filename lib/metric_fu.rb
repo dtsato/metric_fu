@@ -5,15 +5,17 @@ module MetricFu
   LIB_ROOT = File.dirname(__FILE__)
 end
 base_dir = File.join(MetricFu::LIB_ROOT, 'base')
-generator_dir = File.join(MetricFu::LIB_ROOT, 'generators')
-template_dir  = File.join(MetricFu::LIB_ROOT, 'templates')
-graph_dir     = File.join(MetricFu::LIB_ROOT, 'graphs')
+generator_dir  = File.join(MetricFu::LIB_ROOT, 'generators')
+template_dir   = File.join(MetricFu::LIB_ROOT, 'templates')
+graph_dir      = File.join(MetricFu::LIB_ROOT, 'graphs')
+aggregator_dir = File.join(MetricFu::LIB_ROOT, 'aggregators')
 
 # We need to require these two things first because our other classes
 # depend on them.
 require File.join(base_dir, 'report') 
 require File.join(base_dir, 'generator')
 require File.join(base_dir, 'graph')
+require File.join(base_dir, 'collector')
 
 # prevent the task from being run multiple times.
 unless Rake::Task.task_defined? "metrics:all"
@@ -28,3 +30,4 @@ Dir[File.join(template_dir, 'standard/*.rb')].each {|l| require l}
 Dir[File.join(template_dir, 'awesome/*.rb')].each {|l| require l}
 require graph_dir + "/grapher"
 Dir[File.join(graph_dir, '*.rb')].each {|l| require l}
+Dir[File.join(aggregator_dir, '*.rb')].each {|l| require l}

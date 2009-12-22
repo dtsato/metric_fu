@@ -4,6 +4,8 @@ namespace :metrics do
   task :all do
     MetricFu::Configuration.run {}
     MetricFu.metrics.each {|metric| MetricFu.report.add(metric) }
+    MetricFu.aggregators.each {|aggregator| MetricFu.collector.add(aggregator)}
+        
     MetricFu.report.save_output(MetricFu.report.to_yaml,
                                 MetricFu.base_directory, 
                                 "report.yml")
@@ -14,7 +16,7 @@ namespace :metrics do
     
     MetricFu.graphs.each {|graph| MetricFu.graph.add(graph) }
     MetricFu.graph.generate
-    
+        
     if MetricFu.report.open_in_browser?
       MetricFu.report.show_in_browser(MetricFu.output_directory)
     end

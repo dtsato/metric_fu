@@ -14,6 +14,15 @@ class AwesomeTemplate < MetricFu::Template
       end
     end
 
+    if template_exists?('motion')
+      @collector = MetricFu.collector
+      @motion = @collector.collect
+      @html = erbify('motion')
+      html = erbify('layout')
+      fn = output_filename('motion')
+      MetricFu.report.save_output(html, MetricFu.output_directory, fn)
+    end
+    
     # Instance variables we need should already be created from above
     if template_exists?('index')
       @html = erbify('index')
