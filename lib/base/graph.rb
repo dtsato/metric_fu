@@ -12,8 +12,8 @@ module MetricFu
       self.clazz = []
     end
     
-    def add(graph_type)
-      grapher_name = graph_type.to_s.capitalize + "Grapher"
+    def add(graph_type, graph_engine)
+      grapher_name = graph_type.to_s.capitalize + graph_engine.to_s.capitalize + "Grapher"
       self.clazz.push MetricFu.const_get(grapher_name).new
     end
     
@@ -23,9 +23,10 @@ module MetricFu
       puts "Generating graphs"
       MetricFu.each_historical_report do |date, metrics|
         puts "Generating graphs for #{date}"
+        y, m, d = date[0..3].to_i, date[4..5].to_i, date[6..7].to_i
         
         self.clazz.each do |grapher|
-          grapher.get_metrics(metrics, date)
+          grapher.get_metrics(metrics, "#{m}/#{d}")
         end
       end
       self.clazz.each do |grapher|
