@@ -17,8 +17,13 @@ module MetricFu
     def enhance!(collector, metrics)
       return unless metrics[:churn]
       metrics[:churn][:changes].each do |change|
+        next unless in_code_dir?(change[:file_path])
         collector.at(change[:file_path]).churn = change[:times_changed]
       end
+    end
+    
+    def in_code_dir?(file_path)
+      MetricFu.code_dirs.include?(File.dirname(file_path).split('/').first) rescue false
     end
   end
   
